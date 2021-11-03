@@ -31,12 +31,19 @@ namespace EJ1
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-                catch (Exception ex)
+                catch (FormatException ex)
                 {
                     Console.WriteLine(" \n ------------------------");
-                    Console.WriteLine($" {ex.Message} ");
+                    Console.WriteLine(" Error: El dato ingresado no es un numero.");
+                    Console.WriteLine($" {ex.Message}  \n");
                     Console.WriteLine(" ------------------------ \n");
-                    Console.ReadKey();
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Console.WriteLine(" \n ------------------------");
+                    Console.WriteLine(" Error: La opcion ingresada no es valida");
+                    Console.WriteLine($" {ex.Message}  \n");
+                    Console.WriteLine(" ------------------------ \n");
                 }
             }
         }
@@ -66,6 +73,7 @@ namespace EJ1
             catch (FormatException ex)
             {
                 Console.WriteLine(" \n ------------------------");
+                Console.WriteLine(" Error: El dato ingresado no es un numero.");
                 Console.WriteLine($" {ex.Message} ");
                 Console.WriteLine(" ------------------------ \n");
                 Console.ReadKey();
