@@ -7,7 +7,7 @@ namespace EJ1
         static void Main(string[] args)
         {
             int opcion = -1;
-            /*Hice un cambio*/
+            /*Hice un cambiooo*/
             while (opcion != 0)
             {
                 try
