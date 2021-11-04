@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ1
 {
-    static class Matematica
+    public static class Matematica
     {
         public static double Dividir(double pDividendo, double pDivisor)
         {
