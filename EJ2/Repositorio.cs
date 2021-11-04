@@ -69,9 +69,10 @@ namespace EJ2
 
         public IList<Usuario> ObtenerOrdenadosPor(IComparer<Usuario> pComparador)
         {
-            //ver 
-            IList<Usuario> listadeUsuarios = coleccion.Values;
-            return listadeUsuarios;
+            List<Usuario> lista = new List<Usuario>();
+            foreach (var item in coleccion) { lista.Add(item.Value); }
+            lista.Sort(pComparador);
+            return lista;
         }
 
     }

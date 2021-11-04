@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EJ2
 {
-    public class Usuario : IComparable<Usuario>
+    public class Usuario : IComparable
     {
-        string iCodigo, iNombreCompleto, iCorreoElectronico; 
+        string iCodigo, iNombreCompleto, iCorreoElectronico;
 
         public Usuario(string pCodigo, string pCorreo, string pNombreCompleto)
         {
@@ -16,6 +16,16 @@ namespace EJ2
             this.iCorreoElectronico = pCorreo;
             this.iNombreCompleto = pNombreCompleto;
         }
+
+        //Concepto Defensive Copy 
+        public static Usuario Clone(Usuario original)
+        {
+            var clone = new Usuario(original.Codigo, original.CorreoElectronico, original.NombreCompleto);
+            return clone;
+        }
+
+
+
         public string Codigo
         {
             get { return this.iCodigo; }
@@ -34,7 +44,7 @@ namespace EJ2
             set { this.iCorreoElectronico = value; }
         }
 
-        public int CompareTo(Usuario pUsuario)
+        public int CompareTo(Object pUsuario)
         {
             if (pUsuario == null) return 1;
 

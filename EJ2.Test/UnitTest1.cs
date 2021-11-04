@@ -72,7 +72,7 @@ namespace EJ2.Test
         }
 
         [Fact]
-        public IList<Usuario> ObtenerTodos()
+        public IList<Usuario> ObtenerTodosUsuarios()
         {
             Repositorio repositorio = new Repositorio();
 
@@ -90,6 +90,28 @@ namespace EJ2.Test
             return repositorio.ObtenerTodos();
 
         }
+        [Fact]
+        public void ObtenerPruebaCodigo()
+        {
+            Repositorio repositorio = new Repositorio();
+            Usuario usuario1 = new Usuario("txt", "@gmail.com", "Juan1");
+            Usuario usuario2 = new Usuario("bmp", "@gmail.com", "Juan2");
+            Usuario usuario3 = new Usuario("dib", "@gmail.com", "Juan3");
+            Usuario usuario4 = new Usuario("rtf", "@gmail.com", "Juan4");
+            Usuario usuario5 = new Usuario("ays", "@gmail.com", "Juan5");
+
+            repositorio.Agregar(usuario1);
+            repositorio.Agregar(usuario2);
+            repositorio.Agregar(usuario3);
+            repositorio.Agregar(usuario4);
+            repositorio.Agregar(usuario5);
+            var listaUsuarios = repositorio.ObtenerTodos();
+            Usuario usuarioprueba = listaUsuarios.First();
+            Assert.Equal("ays",usuarioprueba.Codigo);
+        }
+
+
+
 
         [Fact]
         public void Eliminar()
@@ -163,6 +185,22 @@ namespace EJ2.Test
             repositorio.Agregar(usuario4);
 
             return repositorio.ObtenerPorCodigo("dib");
+        }
+        [Fact]
+        public void ObtenerOrdenadosPor()
+        {
+            Repositorio repositorio = new Repositorio();
+            Usuario usuario1 = new Usuario("txt", "@gmail.com", "Juan1");
+            Usuario usuario2 = new Usuario("bmp", "@gmail.com", "Juan2");
+            //Usuario usuario3 = new Usuario("dib", "@gmail.com", "Juan3");
+            Usuario usuario4 = new Usuario("rtf", "@gmail.com", "Juan4");
+            Usuario usuario5 = new Usuario("ays", "@gmail.com", "Juan5");
+            repositorio.ObtenerOrdenadosPor(new ComparadorNombreALF());
+            repositorio.ObtenerOrdenadosPor(new ComparadorNombresALFDes());
+            repositorio.ObtenerOrdenadosPor(new ComparadorCodigoALFDes());
+
+
+
         }
     }
 }
