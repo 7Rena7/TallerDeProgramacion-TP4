@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EJ2
+namespace EJ3
 {
     public class Repositorio : IRepositorioUsuarios
     {
@@ -73,6 +73,19 @@ namespace EJ2
             foreach (var item in coleccion) { lista.Add(item.Value); }
             lista.Sort(pComparador);
             return lista;
+        }
+
+        public bool ConsultarUsuarioExistente(Usuario pUsuario)
+        {
+            IList<Usuario> lista = new List<Usuario>();
+            foreach (var item in coleccion) { lista.Add(item.Value); } 
+
+            foreach (var item in coleccion)
+            {
+                if (lista.Contains(pUsuario))
+                    return true;
+            }
+            return false;
         }
 
     }

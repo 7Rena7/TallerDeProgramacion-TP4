@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EJ2
+namespace EJ3
 {
     public class Usuario : IComparable
     {
@@ -16,6 +16,14 @@ namespace EJ2
             this.iCorreoElectronico = pCorreo;
             this.iNombreCompleto = pNombreCompleto;
         }
+
+        //Concepto Defensive Copy 
+        public static Usuario Clone(Usuario original)
+        {
+            var clone = new Usuario(original.Codigo, original.CorreoElectronico, original.NombreCompleto);
+            return clone;
+        }
+
 
 
         public string Codigo
@@ -69,6 +77,19 @@ namespace EJ2
         public static bool operator <=(Usuario pUsuario1, Usuario pUsuario2)
         {
             return pUsuario1.CompareTo(pUsuario2) <= 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Usuario usuario &&
+                   Codigo == usuario.Codigo &&
+                   NombreCompleto == usuario.NombreCompleto &&
+                   CorreoElectronico == usuario.CorreoElectronico;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Codigo, NombreCompleto, CorreoElectronico);
         }
 
     }
