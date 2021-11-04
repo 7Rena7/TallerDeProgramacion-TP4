@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJ3", "EJ3\EJ3.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJ3.Test", "EJ3.Test\EJ3.Test.csproj", "{34011784-2E34-428E-9979-F53D756A9204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ4", "EJ4BIS\EJ4.csproj", "{FDBB2752-9379-49FC-B287-C2E77A68C630}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ4", "EJ4\EJ4.csproj", "{FDBB2752-9379-49FC-B287-C2E77A68C630}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
