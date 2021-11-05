@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class EvaluadorAntiguedadLaboral : IEvaluador
+    public class EvaluadorAntiguedadLaboral : IEvaluador
     {
         private int iAntiguedadMinima;      //Expresada en meses
 
@@ -17,10 +17,7 @@ namespace EJ4
 
         public bool EsValida(SolicitudPrestamo pSolicitud)
         {
-            DateTime fechaDeHoy = DateTime.Today;
-            DateTime fechaIngresoEmpleoCliente = pSolicitud.Cliente.Empleo.FechaIngreso;
-            //Tomando como fehcaIngresoEmpleoCliente siempre menor que fechaDeHoy
-            int antiguedadLaboralCliente = ((fechaIngresoEmpleoCliente.Year - fechaDeHoy.Year) * 12) + fechaIngresoEmpleoCliente.Month - fechaDeHoy.Month;
+            int antiguedadLaboralCliente = pSolicitud.Cliente.Empleo.AntiguedadLaboralEnMeses();
             // antiguedadLaboralCliente esta expresado en meses para poder compararla con iAntiguedadMinima
 
             if (antiguedadLaboralCliente >= this.iAntiguedadMinima) { return true; }

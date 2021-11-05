@@ -28,5 +28,14 @@ namespace EJ4
             get { return this.iFechaIngreso; }
             private set { }
         }
+
+        public int AntiguedadLaboralEnMeses()
+        {
+            DateTime fechaDeHoy = DateTime.Today;
+            DateTime fechaIngresoEmpleoCliente = this.iFechaIngreso;
+            //Tomando como fehcaIngresoEmpleoCliente siempre menor que fechaDeHoy
+            int antiguedadLaboral = Math.Abs(((fechaIngresoEmpleoCliente.Year - fechaDeHoy.Year) * 12) + fechaIngresoEmpleoCliente.Month - fechaDeHoy.Month);
+            return antiguedadLaboral;
+        }
     }
 }

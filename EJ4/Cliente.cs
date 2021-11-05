@@ -26,7 +26,7 @@ namespace EJ4
         }
 
         //Constructor para indicar que tipo de cliente es
-        public Cliente(String pNombre, String pApellido, DateTime pFechaNacimiento, TipoCliente pTipoCliente, Empleo pEmpleo)
+        public Cliente(String pNombre, String pApellido, DateTime pFechaNacimiento, Empleo pEmpleo, TipoCliente pTipoCliente)
         {
             this.iNombre = pNombre;
             this.iApellido = pApellido;
@@ -63,6 +63,19 @@ namespace EJ4
         {
             get { return this.iTipoCliente; }
             private set { }
+        }
+
+        public int EdadEnAnios()
+        {
+            DateTime zeroTime = new DateTime(1, 1, 1);
+
+            DateTime fechaDeHoy = DateTime.Today;
+            DateTime fechaNacimientoCliente = this.FechaNacimiento;
+            TimeSpan span = fechaDeHoy - fechaNacimientoCliente;
+            // Because we start at year 1 for the Gregorian
+            // calendar, we must subtract a year here.
+            int edadCliente = (zeroTime + span).Year - 1;
+            return edadCliente;
         }
     }
 }

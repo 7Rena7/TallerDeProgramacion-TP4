@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class EvaluadorCantidadCuotas : IEvaluador
+    public class EvaluadorCantidadCuotas : IEvaluador
     {
         private int iCantidadMaximaCuotas;
 

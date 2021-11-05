@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class EvaluadorSueldo : IEvaluador
+    public class EvaluadorSueldo : IEvaluador
     {
         private double iSueldoMinimo;
 

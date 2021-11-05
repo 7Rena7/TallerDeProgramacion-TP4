@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class EvaluadorEdad : IEvaluador
+    public class EvaluadorEdad : IEvaluador
     {
         private int iEdadMinima;
         private int iEdadMaxima;
@@ -19,14 +19,7 @@ namespace EJ4
 
         public bool EsValida(SolicitudPrestamo pSolicitud)
         {
-            DateTime zeroTime = new DateTime(1, 1, 1);
-
-            DateTime fechaDeHoy = DateTime.Today;
-            DateTime fechaNacimientoCliente = pSolicitud.Cliente.FechaNacimiento;
-            TimeSpan span = fechaDeHoy - fechaNacimientoCliente;
-            // Because we start at year 1 for the Gregorian
-            // calendar, we must subtract a year here.
-            int edadCliente = (zeroTime + span).Year - 1;
+            int edadCliente = pSolicitud.Cliente.EdadEnAnios();
             //edadCliente experesada en años
 
             if (edadCliente >= this.iEdadMinima && edadCliente <= this.iEdadMaxima) { return true; }

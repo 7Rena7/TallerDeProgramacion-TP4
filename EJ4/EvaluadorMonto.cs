@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class EvaluadorMonto : IEvaluador
+    public class EvaluadorMonto : IEvaluador
     {
         private double iMontoMaximo;
 

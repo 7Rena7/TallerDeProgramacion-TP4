@@ -8,9 +8,9 @@ namespace EJ4
 {
     public enum TipoCliente
     {
-        NoCliente,          // 0
-        Cliente,            // 1
-        ClienteGold,        // 2
-        ClientePlatinum     // 3
+        NoCliente = 1,          
+        Cliente = 2,            
+        ClienteGold = 3,        
+        ClientePremium = 4     
     }
 }

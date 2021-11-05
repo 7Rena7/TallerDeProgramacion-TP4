@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ4
 {
-    class SolicitudPrestamo
+    public class SolicitudPrestamo
     {
         private double iMonto;
         private int iCantidadCuotas;

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJ3", "EJ3\EJ3.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJ3.Test", "EJ3.Test\EJ3.Test.csproj", "{34011784-2E34-428E-9979-F53D756A9204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ4", "EJ4\EJ4.csproj", "{FDBB2752-9379-49FC-B287-C2E77A68C630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJ4", "EJ4\EJ4.csproj", "{FDBB2752-9379-49FC-B287-C2E77A68C630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ4.Tests", "EJ4.Tests\EJ4.Tests.csproj", "{7B97A281-5F27-401A-87F3-F0F585E2610B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{FDBB2752-9379-49FC-B287-C2E77A68C630}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDBB2752-9379-49FC-B287-C2E77A68C630}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDBB2752-9379-49FC-B287-C2E77A68C630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B97A281-5F27-401A-87F3-F0F585E2610B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B97A281-5F27-401A-87F3-F0F585E2610B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B97A281-5F27-401A-87F3-F0F585E2610B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B97A281-5F27-401A-87F3-F0F585E2610B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
