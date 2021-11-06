@@ -9,50 +9,9 @@ namespace EJ4
     public class GestorPrestamos
     {
         //Nose si la relacion tiene que ser Cliente-IEvaluador
-        private static Dictionary<Cliente, IEvaluador> iEvaluadoresPorCliente = new Dictionary<Cliente, IEvaluador>();
+        private static Dictionary<TipoCliente, IEvaluador> iEvaluadoresPorTipoCliente = new Dictionary<TipoCliente, IEvaluador>();
 
         public GestorPrestamos()
-        {
-            /*int antiguedadLaboralMinima = 6;
-            int edadMinima = 18;
-            int edadMaxima = 75;
-            double sueldoMinimo = 5000;
-            int cuotasMaximasSolicitadasNoCliente = 12;
-            int cuotasMaximasSolicitadasCliente = 32;
-            int cuotasMaximasSolicitadasClienteGold = 60;
-            int cuotasMaximasSolicitadasClientePremium = 60;
-            double montoMaximoSolicitadoNoCliente = 20000;
-            double montoMaximoSolicitadoCliente = 100000;
-            double montoMaximoSolicitadoClienteGold = 150000;
-            double montoMaximoSolicitadoClientePremium = 200000;
-
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePlatinum, new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima));
-
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, new EvaluadorEdad(edadMinima, edadMaxima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, new EvaluadorEdad(edadMinima, edadMaxima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, new EvaluadorEdad(edadMinima, edadMaxima));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePlatinum, new EvaluadorEdad(edadMinima, edadMaxima));
-
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, new EvaluadorSueldo(sueldoMinimo));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, new EvaluadorSueldo(sueldoMinimo));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, new EvaluadorSueldo(sueldoMinimo));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePlatinum, new EvaluadorSueldo(sueldoMinimo));
-
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasNoCliente));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasCliente));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClienteGold));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePlatinum, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClientePremium));
-
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, new EvaluadorMonto(montoMaximoSolicitadoNoCliente));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, new EvaluadorMonto(montoMaximoSolicitadoCliente));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, new EvaluadorMonto(montoMaximoSolicitadoClienteGold));
-            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePlatinum, new EvaluadorMonto(montoMaximoSolicitadoClientePremium));*/
-        }
-
-        public bool EsValida(SolicitudPrestamo pSolicitud)
         {
             int antiguedadLaboralMinima = 6;
             int edadMinima = 18;
@@ -67,60 +26,74 @@ namespace EJ4
             double montoMaximoSolicitadoClienteGold = 150000;
             double montoMaximoSolicitadoClientePremium = 200000;
 
-            int tipoCliente = (int)pSolicitud.Cliente.TipoCliente;
+            EvaluadorCompuesto evaluadorNoCliente = new EvaluadorCompuesto();
+            EvaluadorCompuesto evaluadorCliente = new EvaluadorCompuesto();
+            EvaluadorCompuesto evaluadorClienteGold = new EvaluadorCompuesto();
+            EvaluadorCompuesto evaluadorClientePremium = new EvaluadorCompuesto();
 
-            IEvaluador evaluadorAntiguedadLaboral;
-            iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima));
-            iEvaluadoresPorCliente.TryGetValue(pSolicitud.Cliente, out evaluadorAntiguedadLaboral);
-            bool validezAntiguedad = evaluadorAntiguedadLaboral.EsValida(pSolicitud);
+            //Evaluadores iguales para todos los Tipos de Cliente
+            EvaluadorAntiguedadLaboral evaluadorAntiguedadLaboral = new EvaluadorAntiguedadLaboral(antiguedadLaboralMinima);
+            EvaluadorEdad evaluadorEdad = new EvaluadorEdad(edadMinima, edadMaxima);
+            EvaluadorSueldo evaluadorSueldo = new EvaluadorSueldo(sueldoMinimo);
 
-            IEvaluador evaluadorEdad;
-            iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorEdad(edadMinima, edadMaxima));
-            iEvaluadoresPorCliente.TryGetValue(pSolicitud.Cliente, out evaluadorEdad);
-            bool validezEdad = evaluadorEdad.EsValida(pSolicitud);
+            //Evaluadores particulares para No Cliente
+            EvaluadorCantidadCuotas evaluadorCantidadCuotasNoCliente = new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasNoCliente);
+            EvaluadorMonto evaluadorMontoNoCliente = new EvaluadorMonto(montoMaximoSolicitadoNoCliente);
 
-            IEvaluador evaluadorSueldo;
-            iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorSueldo(sueldoMinimo));
-            iEvaluadoresPorCliente.TryGetValue(pSolicitud.Cliente, out evaluadorSueldo);
-            bool validezSueldo = evaluadorSueldo.EsValida(pSolicitud);
+            //Evaluadores particulares para Cliente
+            EvaluadorCantidadCuotas evaluadorCantidadCuotasCliente = new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasCliente);
+            EvaluadorMonto evaluadorMontoCliente = new EvaluadorMonto(montoMaximoSolicitadoCliente);
 
-            IEvaluador evaluadorCantidadCuotas;
-            IEvaluador evaluadorMontoSolicitado;
+            //Evaluadores particulares para Cliente Gold
+            EvaluadorCantidadCuotas evaluadorCantidadCuotasClienteGold = new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClienteGold);
+            EvaluadorMonto evaluadorMontoClienteGold = new EvaluadorMonto(montoMaximoSolicitadoClienteGold);
 
-            switch (tipoCliente)
-            {
-                case 1:
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasNoCliente));
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorMonto(montoMaximoSolicitadoNoCliente));
-                    break;
+            //Evaluadores particulares para Cliente Premium
+            EvaluadorCantidadCuotas evaluadorCantidadCuotasClientePremium = new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClientePremium);
+            EvaluadorMonto evaluadorMontoClientePremium = new EvaluadorMonto(montoMaximoSolicitadoClientePremium);
 
-                case 2:
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasCliente));
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorMonto(montoMaximoSolicitadoCliente));
-                    break;
+            //Agregamos todos los evaluadores al Evaluador Compuesto de cada Tipo de Cliente
+            //Para el Tipo NoCliente
+            evaluadorNoCliente.AgregarEvaluador(evaluadorAntiguedadLaboral);
+            evaluadorNoCliente.AgregarEvaluador(evaluadorEdad);
+            evaluadorNoCliente.AgregarEvaluador(evaluadorSueldo);
+            evaluadorNoCliente.AgregarEvaluador(evaluadorCantidadCuotasNoCliente);
+            evaluadorNoCliente.AgregarEvaluador(evaluadorMontoNoCliente);
 
-                case 3:
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClienteGold));
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorMonto(montoMaximoSolicitadoClienteGold));
-                    break;
+            //Para el Tipo Cliente
+            evaluadorCliente.AgregarEvaluador(evaluadorAntiguedadLaboral);
+            evaluadorCliente.AgregarEvaluador(evaluadorEdad);
+            evaluadorCliente.AgregarEvaluador(evaluadorSueldo);
+            evaluadorCliente.AgregarEvaluador(evaluadorCantidadCuotasCliente);
+            evaluadorCliente.AgregarEvaluador(evaluadorMontoCliente);
 
-                case 4:
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorCantidadCuotas(cuotasMaximasSolicitadasClientePremium));
-                    iEvaluadoresPorCliente.Add(pSolicitud.Cliente, new EvaluadorMonto(montoMaximoSolicitadoClientePremium));
-                    break;
-            }
+            //Para el Tipo ClienteGold
+            evaluadorClienteGold.AgregarEvaluador(evaluadorAntiguedadLaboral);
+            evaluadorClienteGold.AgregarEvaluador(evaluadorEdad);
+            evaluadorClienteGold.AgregarEvaluador(evaluadorSueldo);
+            evaluadorClienteGold.AgregarEvaluador(evaluadorCantidadCuotasClienteGold);
+            evaluadorClienteGold.AgregarEvaluador(evaluadorMontoClienteGold);
 
-            iEvaluadoresPorCliente.TryGetValue(pSolicitud.Cliente, out evaluadorCantidadCuotas);
-            bool validezCantidadCuotas = evaluadorSueldo.EsValida(pSolicitud);
+            //Para el Tipo ClientePremuim
+            evaluadorClientePremium.AgregarEvaluador(evaluadorAntiguedadLaboral);
+            evaluadorClientePremium.AgregarEvaluador(evaluadorEdad);
+            evaluadorClientePremium.AgregarEvaluador(evaluadorSueldo);
+            evaluadorClientePremium.AgregarEvaluador(evaluadorCantidadCuotasClientePremium);
+            evaluadorClientePremium.AgregarEvaluador(evaluadorMontoClientePremium);
 
-            iEvaluadoresPorCliente.TryGetValue(pSolicitud.Cliente, out evaluadorMontoSolicitado);
-            bool validezMontoSolicitado = evaluadorSueldo.EsValida(pSolicitud);
+            //Agregamos al Dictionary las Keys Tipos de Cliente, con sus valores que son sus EvaluadoresCompuestos correspondientes 
+            iEvaluadoresPorTipoCliente.Add(TipoCliente.NoCliente, evaluadorNoCliente);
+            iEvaluadoresPorTipoCliente.Add(TipoCliente.Cliente, evaluadorCliente);
+            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClienteGold, evaluadorClienteGold);
+            iEvaluadoresPorTipoCliente.Add(TipoCliente.ClientePremium, evaluadorClientePremium);
 
-            if (validezAntiguedad && validezEdad && validezSueldo && validezCantidadCuotas && validezMontoSolicitado)
-            {
-                return true;
-            }
-            else { return false; }
+        }
+
+        public bool EsValida(SolicitudPrestamo pSolicitud)
+        {
+            //Devuelve el Evaluador Compuesto que corresponde con el tipo de cliente que tiene pSolicitud
+            IEvaluador evaluador = iEvaluadoresPorTipoCliente[pSolicitud.Cliente.TipoCliente];
+            return evaluador.EsValida(pSolicitud);
         }
     }
 }

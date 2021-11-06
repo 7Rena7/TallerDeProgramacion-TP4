@@ -8,18 +8,26 @@ namespace EJ4
 {
     class EvaluadorCompuesto : IEvaluador
     {
-        private IEvaluador iEvaluadores;
+        private List<IEvaluador> iEvaluadores = new List<IEvaluador>();
 
         public EvaluadorCompuesto() { }
 
         public void AgregarEvaluador(IEvaluador pEvaluador)
         {
-            throw new NotImplementedException();
+            iEvaluadores.Add(pEvaluador);
         }
 
         public bool EsValida(SolicitudPrestamo pSolicitud)
         {
-            throw new NotImplementedException();
+            foreach (IEvaluador evaluadorActual in iEvaluadores)
+            {
+                bool validezEvaluador = evaluadorActual.EsValida(pSolicitud);
+                if (validezEvaluador == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -234,7 +234,7 @@ namespace EJ4.Tests
             //Act
             Empleo empleo1 = new Empleo(8000, new DateTime(2020, 12, 20));
             Cliente cliente1 = new Cliente("Juan", "Perez", new DateTime(1995, 03, 12), empleo1, TipoCliente.NoCliente);
-            SolicitudPrestamo solicitud1 = new SolicitudPrestamo(cliente1, 12000, 12);
+            SolicitudPrestamo solicitud1 = new SolicitudPrestamo(cliente1, 12000, 10);
 
             bool actual = unGestor.EsValida(solicitud1);
 
@@ -252,7 +252,7 @@ namespace EJ4.Tests
             //Act
             Empleo empleo1 = new Empleo(10000, new DateTime(2021, 02, 15));
             Cliente cliente1 = new Cliente("Juan", "Perez", new DateTime(1993, 05, 02), empleo1, TipoCliente.Cliente);
-            SolicitudPrestamo solicitud1 = new SolicitudPrestamo(cliente1, 20000, 24);
+            SolicitudPrestamo solicitud1 = new SolicitudPrestamo(cliente1, 20000, 15);
 
             bool actual = unGestor.EsValida(solicitud1);
 
